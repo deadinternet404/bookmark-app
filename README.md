@@ -5,7 +5,7 @@ file listing. No design, just listings.
 
 - Add a bookmark: title + URL + optional folder (default `/`)
 - Browse grouped by folder, like directories
-- Filter across titles, URLs, and folders
+- Search across titles, URLs, and folders (press `/` to jump to search)
 - Delete with `[x]`
 
 ## Stack

@@ -36,6 +36,8 @@ button:hover { background: #e4e4e4; }
 }
 .toolbar input { max-width: 320px; }
 
+mark { background: #fffd9e; padding: 0; }
+
 .dir { margin-bottom: 0.25rem; }
 .dir-head { font-weight: bold; }
 

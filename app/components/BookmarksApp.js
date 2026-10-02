@@ -1,6 +1,20 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+
+function Highlight({ text, query }) {
+  const q = query.trim();
+  if (!q) return <>{text}</>;
+  const idx = text.toLowerCase().indexOf(q.toLowerCase());
+  if (idx === -1) return <>{text}</>;
+  return (
+    <>
+      {text.slice(0, idx)}
+      <mark>{text.slice(idx, idx + q.length)}</mark>
+      {text.slice(idx + q.length)}
+    </>
+  );
+}
 
 export default function BookmarksApp() {
   const [items, setItems] = useState([]);
@@ -9,6 +23,19 @@ export default function BookmarksApp() {
   const [query, setQuery] = useState('');
   const [form, setForm] = useState({ title: '', url: '', folder: '' });
   const [saving, setSaving] = useState(false);
+  const searchRef = useRef(null);
+
+  // Press "/" anywhere to jump to search
+  useEffect(() => {
+    function onKey(e) {
+      if (e.key === '/' && document.activeElement?.tagName !== 'INPUT') {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   async function load() {
     setLoading(true);
@@ -114,7 +141,8 @@ export default function BookmarksApp() {
 
       <div className="toolbar">
         <input
-          placeholder="/ filter..."
+          ref={searchRef}
+          placeholder="Search bookmarks... ( / )"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -133,9 +161,11 @@ export default function BookmarksApp() {
             <div className="entry" key={b.id}>
               <span className="idx">{String(i + 1).padStart(2, '0')}</span>
               <a href={b.url} target="_blank" rel="noreferrer">
-                {b.title}
+                <Highlight text={b.title} query={query} />
               </a>
-              <span className="url">{b.url}</span>
+              <span className="url">
+                <Highlight text={b.url} query={query} />
+              </span>
               <span className="date">
                 {new Date(b.created_at).toLocaleDateString()}
               </span>
