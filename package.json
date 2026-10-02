@@ -1,0 +1,1 @@
+{"dependencies":{"@neondatabase/serverless":"^1.2.0","next":"^14.2.5","react":"^18.3.1","react-dom":"^18.3.1"},"description":"Simple directory-style bookmark manager. Save links, browse them like a file listing.","name":"bookmark-app","private":true,"scripts":{"build":"next build","dev":"next dev","start":"next start"},"version":"1.0.0"}
