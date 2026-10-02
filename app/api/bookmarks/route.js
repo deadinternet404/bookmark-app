@@ -1,6 +1,10 @@
 import { getSql, ensureTable } from '@/lib/db';
+import { isAuthorized, UNAUTHORIZED } from '@/lib/auth';
 
-export async function GET() {
+export async function GET(req) {
+  if (!isAuthorized(req)) {
+    return Response.json({ error: UNAUTHORIZED }, { status: 401 });
+  }
   await ensureTable();
   const sql = getSql();
   const rows =
@@ -9,6 +13,9 @@ export async function GET() {
 }
 
 export async function POST(req) {
+  if (!isAuthorized(req)) {
+    return Response.json({ error: UNAUTHORIZED }, { status: 401 });
+  }
   await ensureTable();
   const { title, url, folder } = await req.json();
 

@@ -40,6 +40,17 @@ This app needs a Postgres database. Free options, easiest first:
 The app creates the `bookmarks` table itself on the first API call, so there
 is nothing to migrate.
 
+## Passkey protection
+
+The whole app sits behind a passkey:
+
+1. In Vercel: project → **Settings** → **Environment Variables** → add
+   `PASSKEY` with your chosen passkey → **Save**.
+2. Redeploy (or it applies on the next deployment).
+
+Visitors see "Enter the passkey to access the page." A wrong passkey shows
+"You are not authorized to access this page." Login lasts 30 days per device.
+
 ## Local development
 
 ```bash

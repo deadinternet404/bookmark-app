@@ -55,6 +55,10 @@ button:hover { background: #e4e4e4; }
 .empty, .error { color: #666; margin-top: 2rem; }
 .error { color: #a00; }
 
+.login-form { display: flex; gap: 0.5rem; max-width: 420px; margin-top: 1rem; }
+.topbar { display: flex; justify-content: space-between; align-items: baseline; }
+.topbar h1 { margin-bottom: 1rem; }
+
 .count { color: #888; margin-top: 1.5rem; }
 
 @media (max-width: 640px) {
